@@ -26,7 +26,6 @@ class SubjectScreen extends StatefulWidget {
 }
 
 class _SubjectScreenState extends State<SubjectScreen> {
-
   late Future<List<ResourceType>> _future;
   List<ResourceType> _resourceType = <ResourceType>[];
   var isActiveCard = "No";
@@ -37,10 +36,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
     super.initState();
     _future = HomeApiController().getResourceType();
     isActiveCard = SharedPrefController().isActiveCard ?? "";
-
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +64,6 @@ class _SubjectScreenState extends State<SubjectScreen> {
                     end: Alignment.bottomRight,
                     colors: <Color>[Color(0xff2D475F), Color(0xff3AA8F2)])),
           ),
-
         ),
         body: FutureBuilder<List<ResourceType>>(
             future: _future,
@@ -81,50 +76,54 @@ class _SubjectScreenState extends State<SubjectScreen> {
                 _resourceType = snapshot.data ?? [];
                 return OrientationBuilder(
                   builder: (BuildContext context, Orientation orientation) {
-                    bool isPortrait=orientation==Orientation.portrait;
+                    bool isPortrait = orientation == Orientation.portrait;
                     return GridView.builder(
-                        padding: EdgeInsets.only(top: 35.h,right: 15.w,left: 15.w,bottom: 35.h,),
+                        padding: EdgeInsets.only(
+                          top: 35.h,
+                          right: 15.w,
+                          left: 15.w,
+                          bottom: 35.h,
+                        ),
                         itemCount: _resourceType.length,
-                        gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: isPortrait?2:4,
-                            crossAxisSpacing: 20.w,
-                            mainAxisSpacing: isPortrait?15.h:20.h,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: isPortrait ? 2 : 4,
+                          crossAxisSpacing: 20.w,
+                          mainAxisSpacing: isPortrait ? 15.h : 20.h,
                         ),
                         itemBuilder: (context, index) {
-                          if(_resourceType[index].id==23){
-                            _resourceType[index].name='محاضرات';
-                            imagePath='images/subject/lecture.png';
-                          }else if(_resourceType[index].id==22){
-                            _resourceType[index].name='الكتب والمراجع';
-                            imagePath='images/subject/book.png';
-                          }else if(_resourceType[index].id==18){
-                            _resourceType[index].name='الملازم والملخصات';
-                            imagePath='images/subject/summary.png';
-                          }else if (_resourceType[index].id == 16) {
-                            imagePath='images/subject/voic.png';
-                          }else if (_resourceType[index].id == 17) {
-                            imagePath='images/subject/link.png';
-                          }else if (_resourceType[index].id == 19) {
-                            imagePath='images/subject/vid.png';
-                          }else if (_resourceType[index].id == 20) {
-                            imagePath='images/subject/form.png';
-                          }else if (_resourceType[index].id == 21) {
-                            imagePath='images/subject/vid.png';
+                          if (_resourceType[index].id == 23) {
+                            _resourceType[index].name = 'محاضرات';
+                            imagePath = 'images/subject/lecture.png';
+                          } else if (_resourceType[index].id == 22) {
+                            _resourceType[index].name = 'الكتب والمراجع';
+                            imagePath = 'images/subject/book.png';
+                          } else if (_resourceType[index].id == 18) {
+                            _resourceType[index].name = 'الملازم والملخصات';
+                            imagePath = 'images/subject/summary.png';
+                          } else if (_resourceType[index].id == 16) {
+                            imagePath = 'images/subject/voic.png';
+                          } else if (_resourceType[index].id == 17) {
+                            imagePath = 'images/subject/link.png';
+                          } else if (_resourceType[index].id == 19) {
+                            imagePath = 'images/subject/vid.png';
+                          } else if (_resourceType[index].id == 20) {
+                            imagePath = 'images/subject/form.png';
+                          } else if (_resourceType[index].id == 21) {
+                            imagePath = 'images/subject/vid.png';
                           }
 
-                          print('${_resourceType[index].name} ${_resourceType[index].id }  ');
+                          print(
+                              '${_resourceType[index].name} ${_resourceType[index].id}  ');
                           return InkWell(
                               onTap: () {
-                                if (
-                                // isActiveCard == 'yes',
-                                true
-                                ) {
+                                if (isActiveCard == 'yes') {
                                   if (_resourceType[index].id == 16) {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: ((context) {
-                                          return AudioScreen(subjectId: widget.subjectId);
+                                          return AudioScreen(
+                                              subjectId: widget.subjectId);
                                         }),
                                       ),
                                     );
@@ -132,54 +131,60 @@ class _SubjectScreenState extends State<SubjectScreen> {
                                   if (_resourceType[index].id == 22) {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: ((context) {
-                                          return BooksScreen(subjectId: widget.subjectId);
-                                        })));
+                                      return BooksScreen(
+                                          subjectId: widget.subjectId);
+                                    })));
                                   }
 
                                   if (_resourceType[index].id == 17) {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: ((context) {
-                                          return Links(subjectId: widget.subjectId);
-                                        })));
+                                      return Links(subjectId: widget.subjectId);
+                                    })));
                                   }
                                   if (_resourceType[index].id == 18) {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: ((context) {
-                                          return SummaryScreen(subjectId: widget.subjectId);
-                                        })));
+                                      return SummaryScreen(
+                                          subjectId: widget.subjectId);
+                                    })));
                                   }
                                   if (_resourceType[index].id == 19) {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: ((context) {
-                                          return VideosScreen(subjectId: widget.subjectId);
-                                        })));
+                                      return VideosScreen(
+                                          subjectId: widget.subjectId);
+                                    })));
                                   }
                                   if (_resourceType[index].id == 20) {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: ((context) {
-                                          return FormsScreen(subjectId: widget.subjectId);
-                                        })));
+                                      return FormsScreen(
+                                          subjectId: widget.subjectId);
+                                    })));
                                   }
                                   if (_resourceType[index].id == 21) {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: ((context) {
-                                          return VideoLinks(subjectId: widget.subjectId);
-                                        })));
+                                      return VideoLinks(
+                                          subjectId: widget.subjectId);
+                                    })));
                                   }
                                   if (_resourceType[index].id == 23) {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: ((context) {
-                                          return LecturesScreen(subjectId: widget.subjectId);
-                                        })));
+                                      return LecturesScreen(
+                                          subjectId: widget.subjectId);
+                                    })));
                                   }
-                                }
-                                else {
+                                } else {
                                   Navigator.pushNamed(context, '/pay_ways');
                                 }
                               },
                               child: SubjectWidget(
                                 title: _resourceType[index].name,
-                                imagepath: imagePath??'images/subject/book.png',
+                                imagepath:
+                                    imagePath ?? 'images/subject/book.png',
                               ));
                         });
                   },
